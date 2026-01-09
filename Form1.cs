@@ -9,15 +9,20 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using EncryptionTool.Certificates;
 
 namespace EncryptionTool
 {
     public partial class Form1 : Form
     {
         private readonly byte[] _key;
+        private readonly CryptoService _cryptoService;
+        string key = ConfigurationManager.AppSettings["EncryptionKey"];
         public Form1()
         {
             InitializeComponent();
+            var certProvider = new CertificateProvider();
+            _cryptoService = new CryptoService(certProvider);
 
         }
 
@@ -28,14 +33,16 @@ namespace EncryptionTool
 
         private void btnEncrypt_Click(object sender, EventArgs e)
         {
-            string key = ConfigurationManager.AppSettings["EncryptionKey"];
-            txtOutput.Text = Encrypt(txtInput.Text, key);
+            //string key = ConfigurationManager.AppSettings["EncryptionKey"];
+            //txtOutput.Text = Encrypt(txtInput.Text, key);
+            txtOutput.Text = _cryptoService.Encrypt(txtInput.Text, key);
         }
 
         private void btnDecrypt_Click(object sender, EventArgs e)
         {
-            string key = ConfigurationManager.AppSettings["EncryptionKey"];
-            txtOutput.Text = Decrypt(txtInput.Text, key);
+            //string key = ConfigurationManager.AppSettings["EncryptionKey"];
+            //txtOutput.Text = Decrypt(txtInput.Text, key);
+            txtOutput.Text = _cryptoService.Decrypt(txtInput.Text, key);
         }
 
         public static byte[] GetKey(string key)
