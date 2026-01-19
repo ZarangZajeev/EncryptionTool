@@ -31,6 +31,7 @@ namespace EncryptionTool
 
         }
 
+        //Encrypt
         private void btnEncrypt_Click(object sender, EventArgs e)
         {
             //string key = ConfigurationManager.AppSettings["EncryptionKey"];
@@ -38,6 +39,8 @@ namespace EncryptionTool
             txtOutput.Text = _cryptoService.Encrypt(txtInput.Text, key);
         }
 
+
+        // Decrypt
         private void btnDecrypt_Click(object sender, EventArgs e)
         {
             //string key = ConfigurationManager.AppSettings["EncryptionKey"];
